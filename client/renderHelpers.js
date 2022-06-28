@@ -1,4 +1,4 @@
-import { fetchAllPlayers } from './ajaxHelpers';
+import { fetchAllPlayers, fetchSinglePlayer } from './ajaxHelpers';
 
 const playerContainer = document.getElementById('all-players-container');
 const newPlayerFormContainer = document.getElementById('new-player-form');
@@ -36,10 +36,10 @@ export const renderAllPlayers = (playerList) => {
   let detailButtons = [...document.getElementsByClassName('detail-button')];
   for (let i = 0; i < detailButtons.length; i++) {
     const button = detailButtons[i];
-    button.addEventListener('click', async () => {
-      /*
-        YOUR CODE HERE
-      */
+    button.addEventListener('click', async () => {   
+const playerID = button.dataset.id;
+const player = await fetchSinglePlayer(playerID)
+renderSinglePlayer(player)
     });
   }
 };
@@ -61,11 +61,18 @@ export const renderSinglePlayer = (playerObj) => {
       <img src="${playerObj.imageUrl}" alt="photo of ${
     playerObj.name
   } the puppy">
-      <button id="see-all">Back to all players</button>
+      <button id='see-all'>Back to all players</button>
     </div>
   `;
-
   playerContainer.innerHTML = pupHTML;
+
+  let seeAllButton = document.getElementById('see-all')
+  seeAllButton.addEventListener('click', async () => {
+    const players = await fetchAllPlayers()
+    renderAllPlayers(players)
+  });
+
+    
 };
 
 export const renderNewPlayerForm = () => {
