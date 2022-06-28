@@ -1,4 +1,4 @@
-import { fetchAllPlayers } from './ajaxHelpers';
+import { fetchAllPlayers, fetchSinglePlayer } from './ajaxHelpers';
 
 const playerContainer = document.getElementById('all-players-container');
 const newPlayerFormContainer = document.getElementById('new-player-form');
@@ -37,9 +37,9 @@ export const renderAllPlayers = (playerList) => {
   for (let i = 0; i < detailButtons.length; i++) {
     const button = detailButtons[i];
     button.addEventListener('click', async () => {
-      /*
-        YOUR CODE HERE
-      */
+      const playerID = button.dataset.id;
+      const player = await fetchSinglePlayer(playerID)
+      renderSinglePlayer(player)
     });
   }
 };
@@ -64,6 +64,11 @@ export const renderSinglePlayer = (playerObj) => {
       <button id="see-all">Back to all players</button>
     </div>
   `;
+  let seeAllButton = document.getElementById('see-all');
+    seeAllButton.addEventListener('click', async () => {
+      const players = await fetchAllPlayers()
+      renderAllPlayers(players)
+    });
 
   playerContainer.innerHTML = pupHTML;
 };
