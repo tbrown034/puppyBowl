@@ -1,4 +1,4 @@
-import { addNewPlayer, fetchAllPlayers, fetchSinglePlayer } from './ajaxHelpers';
+import { addNewPlayer, fetchAllPlayers, fetchSinglePlayer, removePlayer} from './ajaxHelpers';
 
 const playerContainer = document.getElementById('all-players-container');
 const newPlayerFormContainer = document.getElementById('new-player-form');
@@ -22,6 +22,7 @@ export const renderAllPlayers = (playerList) => {
         </div>
         <img src="${pup.imageUrl}" alt="photo of ${pup.name} the puppy">
         <button class="detail-button" data-id=${pup.id}>See details</button>
+        <button class="delete-button" data-id=${pup.id}>Remove from Roster</button>
       </div>
     `;
     playerContainerHTML += pupHTML;
@@ -56,7 +57,7 @@ export const renderSinglePlayer = (playerObj) => {
         <p class="pup-title">${playerObj.name}</p>
         <p class="pup-number">#${playerObj.id}</p>
       </div>
-      <p>Team: ${playerObj.team ? playerObj.team.name : 'Unassigned'}</p>
+      // <p>Team: ${playerObj.team ? playerObj.team.name : 'Unassigned'}</p>
       <p>Breed: ${playerObj.breed}</p>
       <img src="${playerObj.imageUrl}" alt="photo of ${
     playerObj.name
@@ -104,3 +105,13 @@ export const renderNewPlayerForm = () => {
     event.target.breed.value = "";
   });
 };
+
+let deleteButtons = [...document.getElementsByClassName('delete-button')];
+for (let i = 0; i < deleteButtons.length; i++) {
+ const button = deleteButtons[i];
+ button.addEventListener('click', async () => {
+   await removePlayer(button.dataset.id);
+   const players = await fetchAllPlayers();
+   renderAllPlayers(players);
+ });
+} 
