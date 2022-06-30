@@ -6,6 +6,7 @@ const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
 
 export const fetchAllPlayers = async () => {
     try {
+<<<<<<< HEAD
       const response = await fetch(`${APIURL}/players`);
       const result = await response.json();
       if (result.error) throw result.error;

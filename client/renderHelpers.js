@@ -1,4 +1,6 @@
+
 import { addNewPlayer, fetchAllPlayers, fetchSinglePlayer, removePlayer} from './ajaxHelpers';
+
 
 const playerContainer = document.getElementById('all-players-container');
 const newPlayerFormContainer = document.getElementById('new-player-form');
@@ -62,7 +64,7 @@ export const renderSinglePlayer = (playerObj) => {
       <img src="${playerObj.imageUrl}" alt="photo of ${
     playerObj.name
   } the puppy">
-      <button id="see-all">Back to all players</button>
+      <button id='see-all'>Back to all players</button>
     </div>
   `;
   playerContainer.innerHTML = pupHTML;
