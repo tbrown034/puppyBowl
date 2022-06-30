@@ -54,6 +54,7 @@ export const removePlayer = async (playerId) => {
       method: 'DELETE',
     });
     const result = await response.json();
+    console.log (result, "result did it work") 
     if (result.error) throw result.error;
     return;
    } catch (err) {
