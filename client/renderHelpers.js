@@ -110,7 +110,6 @@ export const renderAllPlayers = (playerList) => {
           name: newName,
           breed: newBreed,
         }
-        
         await addNewPlayer(newAnimal);
         const response = await fetchAllPlayers();
         renderAllPlayers(response);
